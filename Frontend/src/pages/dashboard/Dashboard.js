@@ -6,6 +6,11 @@ import { useNavigate } from 'react-router-dom';
 
 function Dashboard() {
   const [employees, setEmployees] = useState([]);
+  const [filteremployees, setFilterEmployees] = useState([]);
+  const [search,setSearch] = useState("");
+
+
+
   const navigate = useNavigate();
   useEffect(() =>{
     getAllEmployees();
@@ -14,9 +19,22 @@ function Dashboard() {
   function getAllEmployees(){
     listEmployees().then((response) => {
       setEmployees(response.data);
+      setFilterEmployees(response.data);
     }).catch(error => {
     console.error(error);
     })
+  }
+
+  const handlesearch = (e) => {
+    const value = e.target.value;
+    setSearch(value);
+
+    if(value.trim() === ""){
+      setFilterEmployees(employees);
+    }else{
+    const filterValue = employees.filter(emp => emp.name.toLowerCase().includes(value.toLowerCase()));
+    setFilterEmployees(filterValue);
+    }
   }
 
  const handleUpdate = (employeeId) =>{
@@ -35,6 +53,7 @@ navigate(`/employee/${employeeId}`);
     <Row>
       <Col>
       <h1 className='text-center'>Employees</h1>
+      <input type="text"  placeholder='Search Employee by name...' value={search} onChange={handlesearch} class="form-control m-3 "  />
       <Table striped bondered hover responsive>
           <thead>
             <tr>
@@ -47,7 +66,7 @@ navigate(`/employee/${employeeId}`);
           </thead>
           <tbody>
             {
-            employees.map(emp => 
+            filteremployees.map(emp => 
               <tr key={emp.id}>
                 <td>{emp.name}</td>
                 <td>{emp.email}</td>

@@ -53,7 +53,6 @@ navigate(`/employee/${employeeId}`);
     <Row>
       <Col>
       <h1 className='text-center'>Employees</h1>
-      <h2 className='text-center'>The Total Number Of Employees: {filteremployees.length}</h2>
       <input type="text"  placeholder='Search Employee by name...' value={search} onChange={handlesearch} class="form-control m-3 "  />
       <Table striped bondered hover responsive>
           <thead>

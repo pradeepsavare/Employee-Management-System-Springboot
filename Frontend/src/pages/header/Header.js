@@ -1,6 +1,6 @@
 
 import React from 'react';
-import "./Header.css"
+
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
@@ -22,5 +22,4 @@ const Header = () => {
 };
 
 export default Header;
-
 
